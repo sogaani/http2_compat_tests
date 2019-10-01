@@ -20,10 +20,12 @@
 // USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 'use strict';
-require('../common');
+const common = require('../common');
 const assert = require('assert');
 
 const http2 = require('http2');
+
+common.skip('http1 specific');
 
 let serverEndCb = false;
 let serverIncoming = '';
