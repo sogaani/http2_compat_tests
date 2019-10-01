@@ -42,6 +42,7 @@ server.listen(0, function() {
   const client = http2.connect('http://localhost:' + this.address().port);
   const req = client.request();
   req.end();
+  req.resume();
   req.on('end', common.mustCall(() => {
     req.close();
     client.close();
