@@ -19,9 +19,6 @@ server.listen(0, common.mustCall(() => {
   const req = client.request();
   req.end();
   req.on('response', common.mustCall((headers) => {
-    req.on('aborted', common.mustCall(() => {
-      assert.strictEqual(res.aborted, true);
-    }));
     req.close();
     client.close();
   }));
