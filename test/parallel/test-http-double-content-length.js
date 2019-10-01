@@ -4,6 +4,8 @@ const common = require('../common');
 const http2 = require('http2');
 const assert = require('assert');
 
+common.skip('client specific');
+
 // The callback should never be invoked because the server
 // should respond with a 400 Client Error when a double
 // Content-Length header is received.
