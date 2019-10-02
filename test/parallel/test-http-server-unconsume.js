@@ -13,20 +13,21 @@ const http2 = require('http2');
     req.socket[testFn]('data', function(data) {
       received += data;
     });
-
+    req.socket[testFn]('end', function(data) {
+      assert.strictEqual(received, 'hello world',
+                         `failed for socket.${testFn}`);
+    });
     server.close();
   }).listen(0, function() {
     const client = http2.connect('http://localhost:' + this.address().port);
     const req = client.request({
       ':method': 'PUT'
     });
-    req.once('data', function() {
+    req.once('response', function(r) {
       req.end('hello world');
       req.resume();
     });
     req.on('end', common.mustCall(() => {
-      assert.strictEqual(received, 'hello world',
-                         `failed for socket.${testFn}`);
       req.close();
       client.close();
     }));
